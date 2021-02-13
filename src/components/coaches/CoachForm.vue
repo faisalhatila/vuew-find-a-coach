@@ -51,7 +51,7 @@ export default {
     submitForm() {
       const formData = {
         first: this.firstName,
-        last: this.firstName,
+        last: this.lastName,
         desc: this.description,
         rate: this.rate,
         areas: this.areas,
