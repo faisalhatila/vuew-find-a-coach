@@ -2,7 +2,7 @@ export default {
     registerCoach(context,data){
         const coachData = {
             // id: new Date().toISOString,
-            id: 'c3',
+            id: context.rootGetters.userId,
             firstName:data.first,
             lastName:data.last,
             description:data.desc,
