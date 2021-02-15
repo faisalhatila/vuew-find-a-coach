@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent="submitForm">
-    <div class="form-control" :class="{ invalid: !firstName.isValid }">
+    <div class="form-control" :class="{invalid: !firstName.isValid}">
       <label for="firstname">Firstname</label>
       <input
         type="text"
@@ -8,14 +8,9 @@
         v-model.trim="firstName.val"
         @blur="clearValidity('firstName')"
       />
-      <p
-        :style="[!firstName.isValid] && { color: 'red' }"
-        v-if="!firstName.isValid"
-      >
-        First name must not be empty
-      </p>
+      <p v-if="!firstName.isValid">Firstname must not be empty.</p>
     </div>
-    <div class="form-control" :class="{ invalid: !lastName.isValid }">
+    <div class="form-control" :class="{invalid: !lastName.isValid}">
       <label for="lastname">Lastname</label>
       <input
         type="text"
@@ -23,41 +18,24 @@
         v-model.trim="lastName.val"
         @blur="clearValidity('lastName')"
       />
-      <p
-        :style="[!lastName.isValid] && { color: 'red' }"
-        v-if="!lastName.isValid"
-      >
-        Last name must not be empty
-      </p>
+      <p v-if="!lastName.isValid">Lastname must not be empty.</p>
     </div>
-    <div class="form-control" :class="{ invalid: !description.isValid }">
-      <label for="desctiption">Description</label>
+    <div class="form-control" :class="{invalid: !description.isValid}">
+      <label for="description">Description</label>
       <textarea
-        id="desctiption"
+        id="description"
         rows="5"
         v-model.trim="description.val"
         @blur="clearValidity('description')"
       ></textarea>
-      <p
-        :style="[!description.isValid] && { color: 'red' }"
-        v-if="!description.isValid"
-      >
-        Description must not be empty
-      </p>
+      <p v-if="!description.isValid">Description must not be empty.</p>
     </div>
-    <div class="form-control" :class="{ invalid: !rate.isValid }">
+    <div class="form-control" :class="{invalid: !rate.isValid}">
       <label for="rate">Hourly Rate</label>
-      <input
-        type="number"
-        id="rate"
-        v-model.number="rate.val"
-        @blur="clearValidity('rate')"
-      />
-      <p :style="[!rate.isValid] && { color: 'red' }" v-if="!rate.isValid">
-        Rate must be greater than 0
-      </p>
+      <input type="number" id="rate" v-model.number="rate.val" @blur="clearValidity('rate')" />
+      <p v-if="!rate.isValid">Rate must be greater than 0.</p>
     </div>
-    <div class="form-control" :class="{ invalid: !rate.isValid }">
+    <div class="form-control" :class="{invalid: !areas.isValid}">
       <h3>Areas of Expertise</h3>
       <div>
         <input
@@ -89,11 +67,9 @@
         />
         <label for="career">Career Advisory</label>
       </div>
-      <p v-if="!areas.isValid">At least one expertise must be selected</p>
+      <p v-if="!areas.isValid">At least one expertise must be selected.</p>
     </div>
-    <p :style="[!areas.isValid] && { color: 'red' }" v-if="!formIsValid">
-      Please fix the above errors aand submit again
-    </p>
+    <p v-if="!formIsValid">Please fix the above errors and submit again.</p>
     <base-button>Register</base-button>
   </form>
 </template>
@@ -155,9 +131,11 @@ export default {
     },
     submitForm() {
       this.validateForm();
+
       if (!this.formIsValid) {
         return;
       }
+
       const formData = {
         first: this.firstName.val,
         last: this.lastName.val,
@@ -165,6 +143,7 @@ export default {
         rate: this.rate.val,
         areas: this.areas.val,
       };
+
       this.$emit('save-data', formData);
     },
   },

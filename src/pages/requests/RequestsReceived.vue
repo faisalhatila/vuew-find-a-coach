@@ -12,14 +12,18 @@
           :message="req.message"
         ></request-item>
       </ul>
-      <h3 v-else>You haven't received any request yet!</h3>
+      <h3 v-else>You haven't received any requests yet!</h3>
     </base-card>
   </section>
 </template>
+
 <script>
-import RequestItem from '../../components/requests/RequestItem';
+import RequestItem from '../../components/requests/RequestItem.vue';
+
 export default {
-  components: { RequestItem },
+  components: {
+    RequestItem,
+  },
   computed: {
     receivedRequests() {
       return this.$store.getters['requests/requests'];
@@ -30,6 +34,7 @@ export default {
   },
 };
 </script>
+
 <style scoped>
 header {
   text-align: center;

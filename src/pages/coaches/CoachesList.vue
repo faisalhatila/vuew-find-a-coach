@@ -5,9 +5,7 @@
   <section>
     <base-card>
       <div class="controls">
-        <!-- <button>Refresh</button>
-        <router-link to="/register">Register as Coach</router-link> -->
-        <base-button mode="outline">Refresh</base-button>
+        <base-button mode="outline" @click="loadCoaches">Refresh</base-button>
         <base-button v-if="!isCoach" link to="/register">Register as Coach</base-button>
       </div>
       <ul v-if="hasCoaches">
@@ -27,10 +25,14 @@
 </template>
 
 <script>
-import CoachItem from '../../components/coaches/CoachItem';
-import CoachFilter from '../../components/coaches/CoachFilter';
+import CoachItem from '../../components/coaches/CoachItem.vue';
+import CoachFilter from '../../components/coaches/CoachFilter.vue';
+
 export default {
-  components: { CoachItem, CoachFilter },
+  components: {
+    CoachItem,
+    CoachFilter,
+  },
   data() {
     return {
       activeFilters: {
@@ -41,6 +43,9 @@ export default {
     };
   },
   computed: {
+    isCoach() {
+      return this.$store.getters['coaches/isCoach'];
+    },
     filteredCoaches() {
       const coaches = this.$store.getters['coaches/coaches'];
       return coaches.filter((coach) => {
@@ -59,14 +64,17 @@ export default {
     hasCoaches() {
       return this.$store.getters['coaches/hasCoaches'];
     },
-    isCoach() {
-      return this.$store.getters['coaches/isCoach'];
-    },
+  },
+  created() {
+    this.loadCoaches();
   },
   methods: {
     setFilters(updatedFilters) {
       this.activeFilters = updatedFilters;
     },
+    loadCoaches() {
+      this.$store.dispatch('coaches/loadCoaches');
+    }
   },
 };
 </script>

@@ -5,17 +5,16 @@
       <input type="email" id="email" v-model.trim="email" />
     </div>
     <div class="form-control">
-      <label for="message">Your E-Mail</label>
-      <textarea id="message" rows="5" v-model.trim="message"></textarea>
+      <label for="message">Message</label>
+      <textarea rows="5" id="message" v-model.trim="message"></textarea>
     </div>
-    <p class="errors" v-if="!formIsValid">
-      Please eter a valid email and non-empty message.
-    </p>
+    <p class="errors" v-if="!formIsValid">Please enter a valid email and non-empty message.</p>
     <div class="actions">
       <base-button>Send Message</base-button>
     </div>
   </form>
 </template>
+
 <script>
 export default {
   data() {
@@ -27,7 +26,7 @@ export default {
   },
   methods: {
     submitForm() {
-      this, (this.formIsValid = true);
+      this.formIsValid = true;
       if (
         this.email === '' ||
         !this.email.includes('@') ||
@@ -36,16 +35,18 @@ export default {
         this.formIsValid = false;
         return;
       }
-      this.$store.dispatch('requests/contactCoach',{
-        email:this.email,
-        message:this.message,
-        coachId:this.$route.params.id
+      this.$store.dispatch('requests/contactCoach', {
+        email: this.email,
+        message: this.message,
+        coachId: this.$route.params.id
       });
-      this.$router.replace('/coaches')
+      this.$router.replace('/coaches');
+
     },
   },
 };
 </script>
+
 <style scoped>
 form {
   margin: 1rem;
